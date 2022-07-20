@@ -29,7 +29,7 @@ public class SpartanNegativeGetTest {
     @DisplayName("GET request to /api/spartans/10")
     @Test
     public void test1(){
-        Response response = given().accept(ContentType.XML).when().get("/api/spartans/10");
+        Response response = given().accept(ContentType.XML).when().get("api/spartans/10");
 
         //verify status code is 406
         assertEquals(406,response.statusCode());
