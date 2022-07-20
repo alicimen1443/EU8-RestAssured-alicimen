@@ -1,7 +1,10 @@
 package com.cybertek.day2;
 
 import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 public class HrGetRequests {
 
@@ -9,8 +12,28 @@ public class HrGetRequests {
 
     @BeforeAll
     public static void init(){
+        //save baseurl inside this variable so that we don't need to type each http method.
         RestAssured.baseURI="http://54.144.126.242:1000/ords/hr";
     }
+
+    @DisplayName("Get request to /regions")
+    @Test
+    public void test1(){
+
+        Response response = RestAssured.get("/regions"); // here we only giving the endpoint
+
+        //print the status code
+        System.out.println(response.statusCode());
+
+    }
+
+    /*
+        Given accept type is application/json
+        When user sends get request to /regions/2
+        Then response status code must be 200
+        and content type equals to application/json
+        and response body contains Americas
+     */
 
 
 }
