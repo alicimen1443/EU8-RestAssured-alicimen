@@ -44,6 +44,29 @@ public class ORDSApiTestWithParameters {
         response.prettyPrint();
     }
 
+    /*
+        Send a GET request to employees and get only employees who works as a IT_PROG
+     */
+
+    @DisplayName("GET request to /employees with Query Param")
+    @Test
+    public void test2(){
+        Response response = given().accept(ContentType.JSON)
+                .and().queryParam("q", "{\"job_id\": \"IT_PROG\"} ")
+                .when()
+                .get("/employees");
+
+        assertEquals(200,response.statusCode());
+        assertEquals("application/json",response.header("Content-Type"));// lets imagine we dont have content type method
+
+        assertTrue(response.body().asString().contains("IT_PROG"));
+
+        response.prettyPrint();
+    }
+
+
+
+
 
 
 
