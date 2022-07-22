@@ -1,7 +1,11 @@
 package com.cybertek.day3;
 
 
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.*;
@@ -12,7 +16,7 @@ public class ORDSApiTestWithParameters {
     @BeforeAll
     public static void init(){
         //save baseurl inside this variable so that we don't need to type each http method.
-        baseURI="http://54.144.126.242:8000";
+        baseURI="http://54.144.126.242:1000/ords/hr";
     }
     /*
         Given accept type is Json
@@ -22,6 +26,25 @@ public class ORDSApiTestWithParameters {
         And Content type is application/json
         And Payload should contain "United States of America"
      */
+
+    @DisplayName("GET request to /countries with Query Param")
+    @Test
+    public void test1(){
+        Response response = given().accept(ContentType.JSON)
+                .and().queryParam("q", "{\"region_id\":2}")
+                .log().all()
+                .when()
+                .get("/countries");
+
+        assertEquals(200,response.statusCode());
+        assertEquals("application/json",response.header("Content-Type"));// lets imagine we dont have content type method
+
+        assertTrue(response.body().asString().contains("United States of America"));
+
+        response.prettyPrint();
+    }
+
+
 
 
 
