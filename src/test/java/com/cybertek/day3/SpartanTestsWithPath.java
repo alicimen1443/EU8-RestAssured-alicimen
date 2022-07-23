@@ -1,5 +1,6 @@
 package com.cybertek.day3;
 
+import com.cybertek.utilities.SpartanTestBase;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,13 +13,8 @@ import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SpartanTestsWithPath {
+public class SpartanTestsWithPath extends SpartanTestBase {
 
-    @BeforeAll
-    public static void init(){
-        //save baseurl inside this variable so that we don't need to type each http method.
-        baseURI="http://54.144.126.242:8000";
-    }
 
     /*
      Given accept type is json
@@ -80,7 +76,7 @@ public class SpartanTestsWithPath {
         String name = response.path("name[0]");
         System.out.println("name = " + name);
 
-        String lastFirstName = response.path("name[-2]");
+        String lastFirstName = response.path("name[-1]");// last index number is -1
         System.out.println("lastFirstName = " + lastFirstName);
 
         List<String> names = response.path("name");
