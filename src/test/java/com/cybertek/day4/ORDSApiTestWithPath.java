@@ -74,7 +74,18 @@ public class ORDSApiTestWithPath extends HRTestBase {
         for (String jobID : allJobIDs) {
             System.out.println("jobID = " + jobID);
             assertEquals("IT_PROG",jobID);
+
         }
+
+        //TASK
+        //print each name of IT_PROGs
+        List<String> names=response.path("items.first_name");
+
+        for (String eachName : names) {
+            System.out.println("eachName = " + eachName);
+
+        }
+
 
 
     }
