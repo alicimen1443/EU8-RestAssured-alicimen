@@ -12,7 +12,7 @@ public class HamcrestMatchersApiTest {
 
     @DisplayName("OneSpartan with Hamcrest and chaining")
     @Test
-    public void test1(){
+    public void test1() {
 
          /*
        given accept type is Json
@@ -28,42 +28,58 @@ public class HamcrestMatchersApiTest {
         */
 
         given().accept(ContentType.JSON)
-                .and().pathParam("id",15)
+                .and().pathParam("id", 15)
                 .when().get("\n" +
                         "http://54.144.126.242:8000/api/spartans/{id}")
                 .then().statusCode(200)
                 .and()
                 .contentType("application/json")
                 .and()
-                .body("id",equalTo(15),"name",is("Meta")
-                ,"gender",is("Female"),"phone",is(1938695106));
+                .body("id", equalTo(15), "name", is("Meta")
+                        , "gender", is("Female"), "phone", is(1938695106));
 
     }
 
     @DisplayName("CBTraining Teacher requset with chaining and matchers")
     @Test
-    public void teacherData(){
+    public void teacherData() {
 
         // given , when , then it is similar to gerkhin language actually. It is BDD design
 
-            given().accept(ContentType.JSON)
-                    .and()
-                    .pathParam("id",21887)
-                    .when().get("http://api.cybertektraining.com/teacher/{id}")
-                    .then()  // after than it is response part
-                    .statusCode(200)
-                    .and()
-                    .contentType("application/json;charset=UTF-8")
-                    .and()
-                    .header("Content-Length",is("275"))
-                    .and().assertThat()
-                    .header("Date",notNullValue())
-                    .and().assertThat()
-                    .body("teachers[0].firstName",is("Leonel"))
-                    .body("teachers[0].lastName",is("Messi"))
-                    .body("teachers[0].gender",equalTo("Male"));
+        given().accept(ContentType.JSON)
+                .and()
+                .pathParam("id", 21887)
+                .when().get("http://api.cybertektraining.com/teacher/{id}")
+                .then()  // after than it is response part
+                .statusCode(200)
+                .and()
+                .contentType("application/json;charset=UTF-8")
+                .and()
+                .header("Content-Length", is("275"))
+                .and().assertThat()
+                .header("Date", notNullValue())
+                .and().assertThat()
+                .body("teachers[0].firstName", is("Leonel"))
+                .body("teachers[0].lastName", is("Messi"))
+                .body("teachers[0].gender", equalTo("Male"));
     }
 
+    @DisplayName("GET request to teacher/all and chaining")
+    @Test
+    public void teachersTest() {
+
+        //verify Leonel,Andrii,Anreas inside the all teachers
+
+        given().accept(ContentType.JSON)
+                .when()
+                .get("http://api.cybertektraining.com/teacher/all")
+                .then()
+                .statusCode(200)
+                .and()
+                .body("teachers.firstName", hasItems("Leonel", "Andrii", "Anreas")); // if we dont specify index number its gonna return as list of string
+
+
+    }
 
 
 }
