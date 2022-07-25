@@ -115,7 +115,7 @@ public class SpartanTestsWithParameters {
     public void test4(){
         //create a map and query parameters
 
-        Map<String,Object> queryMap = new HashMap<>();
+        Map<String,String> queryMap = new HashMap<>();
         queryMap.put("nameContains","e");
         queryMap.put("gender","Female");
 
