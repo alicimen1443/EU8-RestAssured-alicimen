@@ -27,16 +27,17 @@ public class HamcrestMatchersApiTest {
            "phone": 1938695106
         */
 
-        given().accept(ContentType.JSON)
+        given().log().all()// your request line s log
+                .accept(ContentType.JSON)
                 .and().pathParam("id", 15)
-                .when().get("\n" +
-                        "http://54.144.126.242:8000/api/spartans/{id}")
-                .then().statusCode(200)
+           .when().get("http://54.144.126.242:8000/api/spartans/{id}")
+           .then().statusCode(200)
                 .and()
                 .contentType("application/json")
                 .and()
                 .body("id", equalTo(15), "name", is("Meta")
-                        , "gender", is("Female"), "phone", is(1938695106));
+                        , "gender", is("Female"), "phone", is(1938695106))
+                .log().all();//your response parts logs(if you want to see what is going on as a request and response)
 
     }
 
@@ -49,8 +50,8 @@ public class HamcrestMatchersApiTest {
         given().accept(ContentType.JSON)
                 .and()
                 .pathParam("id", 21887)
-                .when().get("http://api.cybertektraining.com/teacher/{id}")
-                .then()  // after than it is response part
+         .when().get("http://api.cybertektraining.com/teacher/{id}")
+         .then()  // after than it is response part
                 .statusCode(200)
                 .and()
                 .contentType("application/json;charset=UTF-8")
@@ -71,9 +72,9 @@ public class HamcrestMatchersApiTest {
         //verify Leonel,Andrii,Anreas inside the all teachers
 
         given().accept(ContentType.JSON)
-                .when()
+           .when()
                 .get("http://api.cybertektraining.com/teacher/all")
-                .then()
+            .then()
                 .statusCode(200)
                 .and()
                 .body("teachers.firstName", hasItems("Leonel", "Andrii", "Anreas")); // if we dont specify index number its gonna return as list of string

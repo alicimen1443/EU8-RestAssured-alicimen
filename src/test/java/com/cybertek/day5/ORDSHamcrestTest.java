@@ -2,6 +2,8 @@ package com.cybertek.day5;
 
 import com.cybertek.utilities.HRTestBase;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -28,9 +30,9 @@ public class ORDSHamcrestTest extends HRTestBase {
 
         given().accept(ContentType.JSON)
                 .and().queryParam("q","{\"job_id\": \"IT_PROG\"}")
-                .when()
-                .get("/employees")
-                .then()
+           .when()
+                .get("/employees") // we keep going after get.
+         .then()
                 .statusCode(200)
                 .body("items.job_id",everyItem(equalTo("IT_PROG")))
                 .body("items.first_name",containsInRelativeOrder("Alexander","Bruce","David","Valli","Diana")) //contains with order
@@ -43,13 +45,22 @@ public class ORDSHamcrestTest extends HRTestBase {
     public void employeesTest2(){
         //we want to chain and also get response object
 
-        given().accept(ContentType.JSON)
-                .and().queryParam("q","{\"job_id\": \"IT_PROG\"}")
-                .when()
+        //you can also extract the status code into an int variable.There are so many options
+        JsonPath jsonPath = given().accept(ContentType.JSON)
+                .and().queryParam("q", "{\"job_id\": \"IT_PROG\"}")
+         .when()
                 .get("/employees")
-                .then()
+          .then()
                 .statusCode(200)
-                .body("items.job_id",everyItem(equalTo("IT_PROG")));
+                .body("items.job_id", everyItem(equalTo("IT_PROG")))
+                .extract().response().jsonPath();
+        //extract()--> method that allows us to get response object after we use then() method
+        //assert that we have only 5 firstnames
+        assertThat(jsonPath.getList("items.first_name"),hasSize(5));
+
+        //assert firstnames order
+        assertThat(jsonPath.getList("items.first_name"),containsInRelativeOrder("Alexander\",\"Bruce\",\"David\",\"Valli\",\"Diana"));
+
 
 
     }
