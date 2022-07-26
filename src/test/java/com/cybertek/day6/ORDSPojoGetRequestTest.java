@@ -1,9 +1,12 @@
 package com.cybertek.day6;
 
+import com.cybertek.pojo.Employee;
 import com.cybertek.pojo.Link;
 import com.cybertek.pojo.Region;
 import com.cybertek.utilities.HRTestBase;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.restassured.path.json.JsonPath;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -28,6 +31,17 @@ public class ORDSPojoGetRequestTest extends HRTestBase {
         Link link1 = region1.getLinks().get(0);
         String str = region1.getLinks().get(0).getRel();
         System.out.println(str);
+    }
+
+    @DisplayName("GET request to/employees and only get couple of values as a Pojo class")
+    @Test
+    public void employeeGet(){
+
+        Employee employee1 = get("/employees").then().statusCode(200)
+                .extract().jsonPath().getObject("items[0]", Employee.class);
+
+        System.out.println(employee1);
+
     }
 
 
