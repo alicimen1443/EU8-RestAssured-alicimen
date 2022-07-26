@@ -5,7 +5,6 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.MalformedParameterizedTypeException;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -25,6 +24,16 @@ public class JSONtoJAVATest extends SpartanTestBase {
         //get the json and convert it to the map
 
         Map<String,Object> jsonMap = response.as(Map.class);
+
+        System.out.println(jsonMap.toString());
+        //after we got the map, we can use hamcrest or junit assertions to do assertion
+
+        String actualName = (String) jsonMap.get("name");
+        assertThat(actualName,is("Meta"));// here we used hamcrest assertion. If you want to use Junit assertion you can say AssertEquals()
+
+
+
+
 
     }
 
