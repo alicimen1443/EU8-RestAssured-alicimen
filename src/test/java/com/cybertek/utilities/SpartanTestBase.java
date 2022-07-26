@@ -15,7 +15,7 @@ public abstract class SpartanTestBase {
         String dbUrl = "jdbc:oracle:thin:@54.144.126.242:1521:xe";
         String dbUsername = "SP";
         String dbPassword = "SP";
-
+//we commnet it out cos we don't want to connect to database all the time.Whenever we need we can connect it
         //DBUtils.createConnection(dbUrl,dbUsername,dbPassword);
     }
 
