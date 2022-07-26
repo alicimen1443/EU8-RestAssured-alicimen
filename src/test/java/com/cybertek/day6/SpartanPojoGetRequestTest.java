@@ -1,5 +1,6 @@
 package com.cybertek.day6;
 
+import com.cybertek.pojo.Search;
 import com.cybertek.pojo.Spartan;
 import com.cybertek.utilities.SpartanTestBase;
 import io.restassured.http.ContentType;
@@ -53,7 +54,7 @@ public class SpartanPojoGetRequestTest extends SpartanTestBase {
     @DisplayName("GET one spartan from search endpoint result and use POJO")
     @Test
     public void spartanSearchWithPojo(){
-        ///spartans/search?nameContains=a&gender=Male
+        // /spartans/search?nameContains=a&gender=Male
         // send get request to above endpoint and save first object with type Spartan POJO
 
         JsonPath jsonPath = given().accept(ContentType.JSON)
@@ -70,8 +71,25 @@ public class SpartanPojoGetRequestTest extends SpartanTestBase {
         System.out.println("s1.getName() = " + s1.getName());
         System.out.println("s1.getGender() = " + s1.getGender());
 
+    }
+
+    @Test
+    public void test3(){
+        Response response = given().accept(ContentType.JSON)
+                .and().queryParams("nameContains", "a",
+                        "gender", "Male")
+                .when().get("/api/spartans/search")
+                .then().statusCode(200)
+                .extract().response();
+    // it puts content in content variable as List and puts total element in totalElement variable as int
+        Search searchResult = response.as(Search.class);
+        //then i am able to get element from the list
+        System.out.println(searchResult.getContent().get(0).getName());
 
     }
+
+
+
 
 
 
