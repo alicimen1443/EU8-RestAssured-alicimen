@@ -2,11 +2,13 @@ package com.cybertek.day7;
 
 import com.cybertek.pojo.Spartan;
 import com.cybertek.utilities.SpartanTestBase;
+import com.cybertek.utilities.SpartanUtilClass;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.text.Utilities;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -168,6 +170,17 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
     //use faker library(add as a depedency) to assign each time different information
     //for name,gender,phone number
     //then use your method for creating spartan as a map,dynamically.
+
+    @DisplayName("Verify that new spartan is created successfully")
+    @Test
+
+    public void testPostSpartan(){
+
+        SpartanUtilClass.postSpartan();
+
+    }
+
+
 
 
 
