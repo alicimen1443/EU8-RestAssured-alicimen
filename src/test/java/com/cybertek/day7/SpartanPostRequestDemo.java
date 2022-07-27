@@ -3,7 +3,11 @@ package com.cybertek.day7;
 import com.cybertek.utilities.SpartanTestBase;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -36,8 +40,8 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
                 "  \"phone\": 8877445596\n" +
                 "}";
 
-        Response response = given().accept(ContentType.JSON).and()
-                .contentType(ContentType.JSON)
+        Response response = given().accept(ContentType.JSON).and()// what we are asking from api which is JSON response
+                .contentType(ContentType.JSON)// what we are sending to api, which is JSON also
                 .body(requestJsonBody)
                 .when()
                 .post("/api/spartans");
@@ -52,6 +56,34 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
         assertThat(response.path("data.gender"),is("Male"));
         assertThat(response.path("data.phone"),is(8877445596l));
 
+    }
+
+    @DisplayName("POST with Map to JSON")
+    @Test
+    public void postMethod2(){
+        //create a map to keep request body information
+        Map<String,Object> requestJsonMap = new HashMap<>();
+        requestJsonMap.put("name","Severus");
+        requestJsonMap.put("gender","Male");
+        requestJsonMap.put("phone",8877445596l);
+
+        Response response = given().accept(ContentType.JSON).and()// what we are asking from api which is JSON response
+                .contentType(ContentType.JSON)// what we are sending to api, which is JSON also
+                .body(requestJsonMap).log().all()
+                .when()
+                .post("/api/spartans");
+
+        //verify status code
+        assertThat(response.statusCode(),is(201));
+        assertThat(response.contentType(),is("application/json"));
+
+        String expectedResponseMessage = "A Spartan is Born!";
+        assertThat(response.path("success"),is(expectedResponseMessage));
+        assertThat(response.path("data.name"),is("Severus"));
+        assertThat(response.path("data.gender"),is("Male"));
+        assertThat(response.path("data.phone"),is(8877445596l));
+
+        response.prettyPrint();
 
     }
 
