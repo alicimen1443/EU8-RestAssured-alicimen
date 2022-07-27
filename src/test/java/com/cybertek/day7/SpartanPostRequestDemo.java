@@ -70,7 +70,7 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
 
         Response response = given().accept(ContentType.JSON).and()// what we are asking from api which is JSON response
                 .contentType(ContentType.JSON)// what we are sending to api, which is JSON also
-                .body(requestJsonMap).log().all()
+                .body(requestJsonMap).log().all() //auto serialization done by body() method
                 .when()
                 .post("/api/spartans");
 
@@ -101,7 +101,7 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
 
         Response response = given().accept(ContentType.JSON).and()// what we are asking from api which is JSON response
                 .contentType(ContentType.JSON)// what we are sending to api, which is JSON also
-                .body(spartan).log().all()
+                .body(spartan).log().all() //auto serialization done by body() method
                 .when()
                 .post("/api/spartans");
 

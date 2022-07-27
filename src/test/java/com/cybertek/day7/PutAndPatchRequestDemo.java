@@ -60,17 +60,24 @@ public class PutAndPatchRequestDemo extends SpartanTestBase {
 
         //just like post request we have different options to send body, we will go with map
 
-        Map<String, Object> putRequestMap = new LinkedHashMap<>();
-        putRequestMap.put("phone", 88774451111l);
+        Map<String, Object> patchRequestMap = new LinkedHashMap<>();
+        patchRequestMap.put("phone", 88774451111l);
 
         given().contentType(ContentType.JSON)
-                .body(putRequestMap).log().body()
-                .and().pathParam("id", 126)
+                .body(patchRequestMap).log().body()
+                .and().pathParam("id", 127)
                 .when().patch("/api/spartans/{id}")
                 .then()
                 .statusCode(204);
         //send a get request after update, make sure updated field changed, or the new info matching
         //with requestBody that we send
+
+        Spartan spartan2 = given().accept(ContentType.JSON)
+                .and().pathParam("id",127)
+                .when().get("/api/spartans/{id}")
+                .then().statusCode(200).extract().response().as(Spartan.class);
+
+        assertThat(spartan2.getPhone(),is(patchRequestMap.get("phone")));
     }
 
     @DisplayName("DELETE one spartan")
