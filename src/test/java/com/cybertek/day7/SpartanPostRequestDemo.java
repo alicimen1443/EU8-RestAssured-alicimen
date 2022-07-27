@@ -122,6 +122,9 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
     @DisplayName("POST with Map to Spartan Class")
     @Test
     public void postMethod4(){
+        //this example we implement serialization with certain spartan object sending as a request body
+        //also implemented deserialization getting the id,sending get request and saving that body as a response
+
         //create one object from your pojo,send it as a JSON
         Spartan spartan = new Spartan();
         spartan.setName("SeverusSpartan");
@@ -139,7 +142,8 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
                 .then()
                 .statusCode(201)
                 .contentType("application/json")
-                .body("success", is(expectedResponseMessage)).extract()
+                .body("success", is(expectedResponseMessage))
+                .extract()
                 .response().jsonPath().getInt("data.id");
 
         System.out.println("idFromPost = " + idFromPost);
@@ -155,10 +159,6 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
         assertThat(spartanPosted.getId(),is(idFromPost));
 
 
-        // assertThat(response.path("success"),is(expectedResponseMessage));
-       // assertThat(response.path("data.name"),is("SeverusSpartan"));
-       // assertThat(response.path("data.gender"),is("Male"));
-       // assertThat(response.path("data.phone"),is(8877445596l));
 
 
     }
