@@ -1,0 +1,57 @@
+API : Application Programs Interface - Middleman
+
+API: Business Layer
+
+The companies control their database with their API
+like who will access and what data they can access
+
+API is also called in some case: Web Services: google map, weather, news,
+Zip Web Service API
+
+WebApp+MobileApp ---- API ----- Backend(Database+Data Source)
+
+Request AND Response
+
+Postman for manually test APIs, but postman can be used in an automated way
+
+We use RestAssured Library to automate API testing
+
+Request: What do we need? End Point = URL + path parameters(part of the URL)
+is query parameter part of the URL? NO
+        * We need Headers: content type + authorization
+        * If it is POST,PUT,PATCH request (you might need body)
+
+Understanding API Documentation will get you the JOB (Swagger Document)
+
+RESPOSE : We verify headers, status code and body
+verifying body : 6 approach
+    -String
+    -path
+    -jsonPath
+    -hemcrest matchers
+    De-serialization : which method we call? as() method
+    -json to Java Collection
+    -json to POJO(Plain old Java Object)
+    We need object mappers(Data Binders) : Jackson, Gson Dependency
+    -WE will mostly use this gor GET request
+
+      Serialization (Java to JSON) : we use body() method
+      -usually for POST,PUT,PATCH
+
+    **Path and JsonPath are using Gpath Syntax
+
+
+  API testing in a couple of sentence if you want to summerize, you have API endpoints
+   depending on the request type(get,post,put,patch), so basically you are sending a request to your
+     endpoint and depending on the request you are expecting some results from the API.Some kind of
+      result, response.And you will verify those expectations. As a tester we usually verify header,status code
+       content body, and the lastly body part.So we are basically trying to see our API is functioning correctly
+
+
+ How to choose which way to use?
+       - Only one data: String Manipulation (contains method)
+       - One time job, not a big project, more than one data: Collection, hemcrest, path or jsonPath
+       - At your companies: You need to spend time to create POJO Casses
+                - Takes time but very useful and maintainable
+
+

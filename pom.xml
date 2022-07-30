@@ -30,16 +30,18 @@
 
     <dependencies>
         <dependency>
+            <!-- We are using JUnit5 annotations like @Test,@Before    -->
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>5.7.2</version>
         </dependency>
         <dependency>
+            <!-- RestAssured Library is used for automating API testing  -->
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <version>4.4.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <!-- These are object mappers.They are called data binding.You are converting Json to Java and Java to Jason -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -51,6 +53,7 @@
             <version>19.3.0.0</version>
         </dependency>
         <dependency>
+            <!-- It's very useful dependency.We use this dependency to create our pojo classes in an easier way and have clean structure.Getters Setters and ToString annotations  -->
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.20</version>
